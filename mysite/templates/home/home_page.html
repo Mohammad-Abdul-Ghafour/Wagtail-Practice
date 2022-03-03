@@ -2,6 +2,11 @@
 
 {% load wagtailcore_tags wagtailimages_tags %} {% comment %} to load watail tags for core and images {% endcomment %}
 
+{% block imageIcon %}
+    {% image self.banner_image original as logo %} {% comment %} to import image from wagtail model {% endcomment %}
+
+{{ logo.url }}
+{% endblock imageIcon %}
 {% block content %} 
 
     {% image self.banner_image original as logo %} {% comment %} to import image from wagtail model {% endcomment %}

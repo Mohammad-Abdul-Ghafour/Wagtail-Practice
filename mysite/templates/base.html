@@ -36,7 +36,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
     {% comment %} <a class="navbar-brand" href="#">Navbar</a> {% endcomment %}
-    <img src="{{ logo.url }}" alt="" width="70" height="40"/>
+    <img src={% block imageIcon %} {% endblock imageIcon%} alt="" width="70" height="40"/>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
