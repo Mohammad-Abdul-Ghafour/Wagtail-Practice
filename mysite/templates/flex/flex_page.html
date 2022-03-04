@@ -4,17 +4,19 @@
 
 {% block imageIcon %}
 
-https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300
+    https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300
+
 {% endblock %}
 
 {% block content %} 
 
-
-    <div class="container-fluid py-5 text-white bg-dark">
-        <h1 class="display-5 fw-bold">Hello To My {{self.subtitle}}</h1>
-        <hr class="my-4" style = "border-top: 2px solid white;">
-        <p class="col-md-8 fs-4">It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">@todo</a>
+    <div class="card border-warning mb-2">
+        <div class="container-fluid py-5 text-white bg-dark">
+            <h1 class="display-5 fw-bold">Hello To My {{self.subtitle}}</h1>
+            <hr class="my-4" style = "border-top: 2px solid white;">
+            <p class="col-md-8 fs-4">It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">@todo</a>
+        </div>
     </div>
 
 {% endblock content %}

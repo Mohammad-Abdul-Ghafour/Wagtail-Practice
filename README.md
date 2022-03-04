@@ -23,6 +23,13 @@
 6. Then type the following code to extract your dependency to the requirements file for the docker
     > pip install -r requirements.txt
 
+### Add New App To The Project
+
+1. To add new app to the project
+    > python manage.py startapp myapp
+
+    Then add the app name to the **`INSTALLED_APPS`** in **`base.py`** file
+
 ------------------------------------------
 
 ## How To Run Wagtail

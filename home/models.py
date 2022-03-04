@@ -5,9 +5,11 @@ from tabnanny import verbose
 from django.db import models
 
 from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel , PageChooserPanel
+from wagtail.core.fields import RichTextField , StreamField
+from wagtail.admin.edit_handlers import FieldPanel , PageChooserPanel , StreamFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
+
+from streams import blocks
 
 class HomePage(Page):
     templates = 'home/home_page.html' # Choose the template to conect the model to
@@ -27,6 +29,14 @@ class HomePage(Page):
         on_delete=models.SET_NULL,
         related_name="+"
     ) # Add Call To Action Field Where we can choose a page to redirect to when we click on banner
+    content = StreamField(
+        [
+            ("title_and_text" , blocks.TitleAndTextBlock()), # ("The name of the stream field you can name it any thing but once you did you can't change it cause wagtail use it", Add out block from streams)
+            ("full_richtext" , blocks.RichTextBlock()),
+        ],
+        null=True,
+        blank=True
+    ) # Add A Stream Field NOTE: It Takes A List Of Tuples
 
     max_count = 1 # To have only one home page in the site
 
@@ -34,7 +44,8 @@ class HomePage(Page):
         FieldPanel("banner_titles"),
         FieldPanel("banner_subtitle"),
         PageChooserPanel("banner_cta"),
-        ImageChooserPanel("banner_image")
+        ImageChooserPanel("banner_image"),
+        StreamFieldPanel("content")
     ] # to show the field in the admin panel
 
     class Meta: # class to give information about the information

@@ -1,0 +1,84 @@
+{% extends "base.html" %} {% comment %} to extend from the base HTML file {% endcomment %}
+
+{% load wagtailcore_tags wagtailimages_tags %} {% comment %} to load watail tags for core and images {% endcomment %}
+
+{% block imageIcon %}
+    {% image self.banner_image original as logo %} {% comment %} to import image from wagtail model {% endcomment %}
+
+{{ logo.url }}
+{% endblock imageIcon %}
+{% block content %} 
+
+    {% image self.banner_image original as logo %} {% comment %} to import image from wagtail model {% endcomment %}
+
+    {% comment %} Hello World {{ self.banner_titles }} {% endcomment %}
+
+    {% comment %} <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid"> {% endcomment %}
+
+            {% comment %} <a class="navbar-brand" href="#">{{self.banner_titles}}</a> {% endcomment %}
+
+            {% comment %} <img src="{{ logo.url }}" alt="" width="70" height="40"/> {% endcomment %}
+
+            {% comment %} <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button> {% endcomment %}
+{% comment %} 
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           id="navbarDropdown"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="#">Action</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Another action</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider"/>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2"
+                           type="search"
+                           placeholder="Search"
+                           aria-label="Search"/>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav> {% endcomment %}
+
+
+<div class="card border-warning mb-2">
+<div class="container-fluid py-5 text-white bg-dark">
+    <h1 class="display-5 fw-bold">Hello, {{self.banner_titles}}</h1>
+    <p class="col-md-8 fs-4"> {{self.banner_subtitle|richtext}} </p>
+    <hr class="my-4">
+    <p class="col-md-8 fs-4">It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <a class="btn btn-primary btn-lg" href="#" role="button">@todo</a>
+</div>
+</div>
+{% endblock content %}
