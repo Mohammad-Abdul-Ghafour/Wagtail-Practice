@@ -1,0 +1,40 @@
+{% load wagtailimages_tags %}
+
+<div class="container">
+
+    <h2>{{self.title}}</h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+        {% for card in self.cards %}
+            {% image card.image fill-350x200 as img %}
+            <div class="col">
+              <div class="card border-light h-100">
+                <img src="{{ img.url }}" class="card-img-top img-fluid" alt="{{ img.alt }}" style="width:auto; height:15rem; margin: 0 auto  0 auto;">
+                <div class="card-body">
+                    <h5 class="card-title">{{card.title}}</h5>
+                    <p class="card-text">{{card.text}}</p>
+                    {% if card.page_buttons and card.url_button %}
+                    <div class="d-flex justify-content-evenly">
+                        <a href="{{ card.page_buttons.url }}" class="btn btn-info">
+                            Learn More (internal)
+                        </a>
+                        <a href="{{ card.url_button }}" class="btn btn-info">
+                            Learn More (external)
+                        </a>
+                    </div>
+                    {% elif card.page_buttons %}
+                        <a href="{{ card.page_buttons.url }}" class="btn btn-info">
+                            Learn More
+                        </a>
+                    {% elif card.url_button %}
+                        <a href="{{ card.url_button }}" class="btn btn-info">
+                            Learn More
+                        </a>
+                    {% endif %}
+                </div>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
