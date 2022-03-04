@@ -1,12 +1,12 @@
 {% load wagtailimages_tags %}
 
-<div class="container">
+<div class="container-fluid w-75 mb-2" style="">
 
     <h2>{{self.title}}</h2>
 
     <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
         {% for card in self.cards %}
-            {% image card.image fill-350x200 as img %}
+            {% image card.image fill-380x200 as img %}
             <div class="col">
               <div class="card border-light h-100">
                 <img src="{{ img.url }}" class="card-img-top img-fluid" alt="{{ img.alt }}" style="width:auto; height:15rem; margin: 0 auto  0 auto;">
