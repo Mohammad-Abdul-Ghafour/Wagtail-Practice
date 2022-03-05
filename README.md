@@ -70,3 +70,26 @@
     ```python
         INTERNAL_IPS = ("127.0.0.1")
     ```
+
+------------------------------------------
+
+## How To Set Site Settings
+
+1. We gonna use **`BaseSetting`** for our class to inherit from.
+2. And then we gonna use **`register_setting`** before our class to register it in the settings.
+
+    ```python
+    @register_setting(icon="media")
+    class SocialMediaSettings(BaseSetting):
+        ...
+        ...
+        ...
+        panels = [
+            ...
+        ]
+    ```
+
+3. Then we have to enable the setting so we can get into there from **`base.py`** we go to **`TEMPLATES`** inside **`OPTIONS`** add to the **`context_processors`** the following
+    > 'wagtail.contrib.settings.context_processors.settings',
+4. Then in **`INSTALLED_APPS`** add the following
+    > 'wagtail.contrib.settings',
