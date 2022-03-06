@@ -90,3 +90,4 @@ class HomePage(Page):
     class Meta: # class to give information about the information
         verbose_name = "Home Page" # To change the page Title
         verbose_name_plural = "Home Pages"
+
