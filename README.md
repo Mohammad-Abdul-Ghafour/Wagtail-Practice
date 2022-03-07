@@ -122,3 +122,54 @@
     ```python
         path(r'^sitemap.xml$', sitemap)
     ```
+
+------------------------------------------
+
+## Wagtail Imports
+
+```python
+# Models
+from wagtail.core import blocks
+from wagtail.core.models import (
+    Page,
+    Orderable,
+)
+# Fields
+from wagtail.core.fields import (
+    RichTextField,
+    StreamField,
+)
+from modelcluster.fields import ParentalKey
+# Admin Panels
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+    StreamFieldPanel,
+    InlinePanel,
+)
+# Images
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.edit_handlers import ImageChooserPanel
+# Site Settings Models
+from wagtail.contrib.settings.models import (
+    BaseSetting,
+    register_setting,
+)
+# Routable Page
+from wagtail.contrib.routable_page.models import (
+    RoutablePageMixin,
+    route,
+)
+# Snippets
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+# Model Admin
+from wagtail.contrib.modeladmin.options import (
+    ModelAdmin,
+    modeladmin_register,
+)
+# Django Imports
+from django.db import models
+from django.shortcuts import render
+```
