@@ -18,6 +18,7 @@ class RichTextBlock(blocks.RichTextBlock):
         icon = "edit"
         label = "Full RichText"
 
+
 class CardsBlock(blocks.StructBlock):
 
     title = blocks.CharBlock(required=True , help_text="Add your title")
@@ -37,3 +38,26 @@ class CardsBlock(blocks.StructBlock):
         template = "streams/card_block.html"
         icon="placeholder"
         label="Cards"
+
+class LinkStructValue(blocks.StructValue):
+
+    def url(self):
+        page_button = self.get('page_buttons')
+        url_button = self.get('url_button')
+        if page_button:
+            return page_button.url
+        elif url_button:
+            return url_button.url
+        return None
+
+class ButtonBlock(blocks.StructBlock):
+
+    page_buttons = blocks.PageChooserBlock(required=False)
+    url_button = blocks.URLBlock(required=False)
+
+    class Meta:
+        template = "streams/button_block.html"
+        icon = "placeholder"
+        label = "Single Button"
+        value_class = LinkStructValue
+

@@ -22,6 +22,9 @@
                             Learn More (external)
                         </a>
                     </div>
+                         {% comment %} <a href="{{ card.url }}" class="btn btn-info">
+                            {{ self.url }}
+                        </a> {% endcomment %}
                     {% elif card.page_buttons %}
                         <a href="{{ card.page_buttons.url }}" class="btn btn-info">
                             Learn More

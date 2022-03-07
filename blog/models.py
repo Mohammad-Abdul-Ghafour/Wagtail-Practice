@@ -72,6 +72,7 @@ class BlogDetailPage(Page):
             ("title_and_text" , blocks.TitleAndTextBlock()),
             ("full_richtext" , blocks.RichTextBlock()),
             ("card" , blocks.CardsBlock()),
+            ("button", blocks.ButtonBlock()),
         ],
         null=True,
         blank=True,
