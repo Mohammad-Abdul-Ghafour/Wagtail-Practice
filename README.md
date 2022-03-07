@@ -93,3 +93,12 @@
     > 'wagtail.contrib.settings.context_processors.settings',
 4. Then in **`INSTALLED_APPS`** add the following
     > 'wagtail.contrib.settings',
+
+------------------------------------------
+
+## Routable Page
+
+1. First we have to enable Routable Page from the **`settings`** **`INSTALLED_APPS`**
+    > 'wagtail.contrib.routable_page',
+
+2. In the page you needed the route you have to import **`RoutablePageMixin`** & **`route`** from **`wagtail.contrib.routable_page.models`**

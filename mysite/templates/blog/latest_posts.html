@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags wagtailimages_tags wagtailroutablepage_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block imageIcon %}
 
@@ -9,8 +9,6 @@
 {% endblock %}
 
 {% block content %} 
-<a href="{% routablepageurl page "last_posts" %}">Latest Posts</a>
-
 <div class="container">
     {% for post in posts %}
         <div class="row my-2">
@@ -28,20 +26,5 @@
         </div>
     {% endfor %}
 </div>
-
-    {% comment %} <div class="card border-warning mb-2">
-        <div class="container-fluid py-5 text-white bg-dark">
-            <h1 class="display-5 fw-bold">Hello To My {{self.subtitle}}</h1>
-            <hr class="my-4" style = "border-top: 2px solid white;">
-            <p class="col-md-8 fs-4">It uses utility classes for typography and spacing to space content out within the larger container.</p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">@todo</a>
-        </div>
-    </div>
-
-    {% for block in page.content %}
-
-    {% include_block block %}
-    
-    {% endfor %} {% endcomment %}
 
 {% endblock content %}

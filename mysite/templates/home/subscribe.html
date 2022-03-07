@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% comment %} to extend from the base HTML file {% endcomment %}
+
+{% load wagtailcore_tags wagtailimages_tags %} {% comment %} to load watail tags for core and images {% endcomment %}
+
+{% block imageIcon %}
+{% image self.banner_image original as logo %} {% comment %} to import image from wagtail model {% endcomment %}
+
+{{ logo.url }}
+{% endblock imageIcon %}
+{% block content %}
+
+
+This is a test {{ test }}
+<div class="card border-warning mb-2">
+    <div class="container-fluid py-5 text-white bg-dark">
+        <h1 class="display-5 fw-bold">Hello, {{self.banner_titles}}</h1>
+        <p class="col-md-8 fs-4"> {{self.banner_subtitle|richtext}} </p>
+        <hr class="my-4">
+        <p class="col-md-8 fs-4">It uses utility classes for typography and spacing to space content out within the
+            larger container.</p>
+        <a class="btn btn-primary btn-lg" href="#" role="button">@todo</a>
+    </div>
+</div>
+
+{% endblock content %}

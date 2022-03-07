@@ -1,10 +1,13 @@
+import imp
 from django.db import models
+from django.shortcuts import render
 
 from wagtail.core.models import Page ,Orderable
 from wagtail.core.fields import RichTextField , StreamField
 from wagtail.admin.edit_handlers import FieldPanel , PageChooserPanel , StreamFieldPanel , InlinePanel , MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from modelcluster.fields import ParentalKey
+from wagtail.contrib.routable_page.models import RoutablePageMixin , route
 
 from streams import blocks
 
@@ -35,7 +38,7 @@ class HomePageCarouselBanner(Orderable):
         PageChooserPanel("carousel_link"),
     ]
 
-class HomePage(Page):
+class HomePage(RoutablePageMixin, Page):
     templates = 'home/home_page.html' # Choose the template to conect the model to
     banner_titles = models.CharField(max_length=255 , blank=False , null=True) # Add new field to the model
     banner_subtitle = RichTextField(features=["bold", "italic"]) # Add a subtitle to the banner
@@ -91,3 +94,8 @@ class HomePage(Page):
         verbose_name = "Home Page" # To change the page Title
         verbose_name_plural = "Home Pages"
 
+    @route(r'^subscribe/$')
+    def the_subscribe_page(self,request,*args,**kwargs):
+        context = self.get_context(request,*args,**kwargs)
+        context["test"] = "Hello world"
+        return render(request,"home/subscribe.html",context)
