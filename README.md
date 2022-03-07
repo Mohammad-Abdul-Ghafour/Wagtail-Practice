@@ -102,3 +102,23 @@
     > 'wagtail.contrib.routable_page',
 
 2. In the page you needed the route you have to import **`RoutablePageMixin`** & **`route`** from **`wagtail.contrib.routable_page.models`**
+
+------------------------------------------
+
+## Sitemaps
+
+1. First we have to enable Sitemaps from the **`settings`** **`INSTALLED_APPS`** for **`django`** and **`wagtail`**
+
+    ```python
+        'wagtail.contrib.sitemaps',
+        'django.contrib.sitemaps',
+    ```
+
+2. Then we have to import wagtail sitemaps views to our project **`urls.py`**
+    > from wagtail.contrib.sitemaps.views import sitemap
+
+3. Then add our url to **`urlpatterns`**
+
+    ```python
+        path(r'^sitemap.xml$', sitemap)
+    ```

@@ -36,6 +36,18 @@ class BlogListPage(RoutablePageMixin,Page):
         context['posts']= context['posts'][:1]
         return render(request,"blog/latest_posts.html", context)
 
+    def get_sitemap_urls(self,request):
+        # return [] "This Will remove the blog and latest page from sitemap"
+        sitemap = super().get_sitemap_urls(request)
+        sitemap.append(
+            {
+                "location": self.full_url + self.reverse_subpage('last_posts') ,
+                "lastmod": (self.last_published_at or self.latest_revision_created_at),
+                "priority":0.9, # To add a priority to the page
+            }
+        )
+        return sitemap
+
 
 class BlogDetailPage(Page):
 
