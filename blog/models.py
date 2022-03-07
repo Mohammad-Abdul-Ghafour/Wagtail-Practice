@@ -3,14 +3,28 @@ import imp
 from tabnanny import verbose
 from django.db import models
 from django.shortcuts import render
+from modelcluster.fields import ParentalKey
 
-from wagtail.core.models import Page , StreamField
-from wagtail.admin.edit_handlers import StreamFieldPanel, FieldPanel , MultiFieldPanel
+from wagtail.core.models import Page , StreamField , Orderable
+from wagtail.admin.edit_handlers import StreamFieldPanel, FieldPanel , MultiFieldPanel , InlinePanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin , route
 from wagtail.snippets.models import register_snippet
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from streams import blocks
+
+class BolgAuthorsOrderable(Orderable):
+
+    page = ParentalKey("blog.BlogDetailPage",related_name="blog_authors")
+    author = models.ForeignKey(
+        "blog.BlogAuthor",
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        SnippetChooserPanel("author")
+    ]
 
 class BlogAuthor(models.Model):
 
@@ -122,4 +136,10 @@ class BlogDetailPage(Page):
         FieldPanel("custom_title"),
         ImageChooserPanel("blog_image"),
         StreamFieldPanel("content"),
+        MultiFieldPanel(
+            [
+                InlinePanel("blog_authors" , label="Author",min_num=1,max_num=5)
+            ],
+            heading="Author(s)"
+        )
     ]
