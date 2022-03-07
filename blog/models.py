@@ -1,12 +1,51 @@
+import email
+import imp
+from tabnanny import verbose
 from django.db import models
 from django.shortcuts import render
 
 from wagtail.core.models import Page , StreamField
-from wagtail.admin.edit_handlers import StreamFieldPanel, FieldPanel
+from wagtail.admin.edit_handlers import StreamFieldPanel, FieldPanel , MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin , route
+from wagtail.snippets.models import register_snippet
 
 from streams import blocks
+
+class BlogAuthor(models.Model):
+
+    name = models.CharField(max_length=100,null=False,blank=False)
+    image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    email = models.EmailField(null=True,blank=True)
+
+    panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel("name"),
+                ImageChooserPanel("image")
+            ],heading="Name & Image"
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("email")
+            ],heading="Email"
+        )
+    ]
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Blog Author"
+        verbose_name_plural = "Blog Authors"
+
+register_snippet(BlogAuthor)
 
 class BlogListPage(RoutablePageMixin,Page):
     """ Listing all blog detail pages """
@@ -34,6 +73,7 @@ class BlogListPage(RoutablePageMixin,Page):
     def latest_blog_posts(self,request,*args,**kwargs):
         context = self.get_context(request,*args,**kwargs)
         context['posts']= context['posts'][:1]
+        context['author']= BlogAuthor.objects.all()
         return render(request,"blog/latest_posts.html", context)
 
     def get_sitemap_urls(self,request):

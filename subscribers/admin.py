@@ -2,7 +2,7 @@ from wagtail.contrib.modeladmin.options import ModelAdmin , modeladmin_register
 from .models import Subscriber
 
 class SubscriberAdmin(ModelAdmin):
-
+    
     model = Subscriber
     menu_lable = "Subscriber"
     menu_icon = "group"
