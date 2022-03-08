@@ -11,6 +11,22 @@
 {% block content %} 
 <a href="{% routablepageurl page "last_posts" %}">Latest Posts</a>
 
+            <div>
+                <h4>
+                    Categories
+                </h4>
+                <ul>
+                    {% for cat in categories %}
+                        <li>
+                            <a href="?category={{ cat.slug }}">
+                            {{ cat.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+
 <div class="container">
     {% for post in posts %}
         <div class="row my-2">

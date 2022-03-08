@@ -1,15 +1,59 @@
+from re import T
+from tkinter import Widget
 from django.db import models
 from django.shortcuts import render
-from modelcluster.fields import ParentalKey
+from django import forms
 
-from wagtail.core.models import Page , StreamField , Orderable
-from wagtail.admin.edit_handlers import StreamFieldPanel, FieldPanel , MultiFieldPanel , InlinePanel
+from modelcluster.fields import (
+    ParentalKey,
+    ParentalManyToManyField,
+)
+
+from wagtail.core.models import (
+    Page,
+    StreamField,
+    Orderable,
+)
+from wagtail.admin.edit_handlers import (
+    StreamFieldPanel,
+    FieldPanel,
+    MultiFieldPanel,
+    InlinePanel,
+)
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.contrib.routable_page.models import RoutablePageMixin , route
+from wagtail.contrib.routable_page.models import (
+    RoutablePageMixin,
+    route,
+)
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from streams import blocks
+
+class BlogCategory(models.Model):
+
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(
+        verbose_name="slug",
+        allow_unicode=True,
+        max_length=255,
+        help_text="A slug to identify the posts"
+    )
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("slug")
+    ]
+
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+register_snippet(BlogCategory)
 
 class BolgAuthorsOrderable(Orderable):
 
@@ -78,6 +122,7 @@ class BlogListPage(RoutablePageMixin,Page):
         context =  super().get_context(request, *args, **kwargs)
         context["posts"] = BlogDetailPage.objects.live().public()
         context['revers_link'] = self.reverse_subpage('last_posts')
+        context['categories'] = BlogCategory.objects.all()
         return context
     
     @route(r'^latest/$' , name="last_posts")
@@ -118,6 +163,8 @@ class BlogDetailPage(Page):
         on_delete=models.SET_NULL,
     )
 
+    categories = ParentalManyToManyField("blog.BlogCategory",blank=True,)
+
     content = StreamField(
         [
             ("title_and_text" , blocks.TitleAndTextBlock()),
@@ -138,5 +185,11 @@ class BlogDetailPage(Page):
                 InlinePanel("blog_authors" , label="Author",min_num=1,max_num=5)
             ],
             heading="Author(s)"
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("categories", widget=forms.CheckboxSelectMultiple)
+            ],
+            heading="Categories"
         )
     ]
