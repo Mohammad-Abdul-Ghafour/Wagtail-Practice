@@ -191,3 +191,21 @@ class BlogDetailPage(Page):
             heading="Categories"
         )
     ]
+
+class ArticleBlogPage(BlogDetailPage):
+
+    template = "blog/article_blog_page.html"
+
+    subtitle = models.CharField(max_length=100,blank=True,null=True)
+    intro_image = models.ForeignKey(
+        "wagtailimages.Image",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        help_text="Intro Image"
+    )
+
+    content_panels = BlogDetailPage.content_panels + [
+        FieldPanel("subtitle"),
+        ImageChooserPanel("intro_image")
+    ]
