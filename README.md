@@ -43,7 +43,9 @@
 
 ------------------------------------------
 
-## Install Django Debug Toolbar
+## Install Django Debug Toolbar & Django Shell + Ipython
+
+### Django Debug Toolbar
 
 1. To install Django Debug Toolbar to your project type in the terminal the following code
     > pip install django-debug-toolbar
@@ -70,6 +72,33 @@
     ```python
         INTERNAL_IPS = ("127.0.0.1")
     ```
+
+### Django Shell Extension
+
+1. On your terminal tyoe the following
+    > pip install django-extensions
+2. Then go to **`dev.py`** and just add it to the **`INSTALLED_APPS`**
+
+    ```python
+        INSTALLED_APPS = INSTALLED_APPS + [
+            "django_extensions",
+        ]
+    ```
+
+3. Then to enter the shell just run the following on the terminal
+    > python manage.py shell_plus
+
+#### Importent Codes
+
+* **`__dict__`** : This will give us a dictionary of everything available.
+
+### Ipython
+
+1. On your terminal tyoe the following
+    > pip install ipython
+
+2. Then to enter the shell just run the following on the terminal
+    > python manage.py shell_plus --ipython
 
 ------------------------------------------
 
@@ -139,7 +168,10 @@ from wagtail.core.fields import (
     RichTextField,
     StreamField,
 )
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import (
+    ParentalKey,
+    ParentalManyToManyField,
+)
 # Admin Panels
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -172,4 +204,5 @@ from wagtail.contrib.modeladmin.options import (
 # Django Imports
 from django.db import models
 from django.shortcuts import render
+from django import forms
 ```

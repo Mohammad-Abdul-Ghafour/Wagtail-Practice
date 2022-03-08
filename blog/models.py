@@ -1,5 +1,3 @@
-from re import T
-from tkinter import Widget
 from django.db import models
 from django.shortcuts import render
 from django import forms
