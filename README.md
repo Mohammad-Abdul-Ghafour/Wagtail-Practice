@@ -301,4 +301,6 @@ from wagtail.contrib.modeladmin.options import (
 from django.db import models
 from django.shortcuts import render
 from django import forms
+    ## For Localization
+    from django.conf.urls.i18n import i18n_patterns
 ```
