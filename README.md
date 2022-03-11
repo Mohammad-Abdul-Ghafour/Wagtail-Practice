@@ -154,6 +154,102 @@
 
 ------------------------------------------
 
+## Wagtail Localizaton
+
+### Inatalling Wagtail Localize
+
+1. Install using pip:
+
+    > pip install wagtail-localize
+
+2. Add **`wagtail_localize`** and **`wagtail_localize.locales`** to your **`INSTALLED_APPS`** setting:
+
+    ```python
+    INSTALLED_APPS = [
+        # ...
+        "wagtail_localize",
+        "wagtail_localize.locales",  # This replaces "wagtail.locales"
+        # ...
+    ]
+    ```
+
+### Enabling internationalisation
+
+1. To enable internationalisation in both Django and Wagtail, set the following settings to True
+
+    ```python
+    USE_I18N = True
+    WAGTAIL_I18N_ENABLED = True
+    USE_L10N = True
+    ```
+
+2. Next we need to configure the available languages
+
+    ```python
+    WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
+    ('en', "English"), # The first option should be the same as the default language (LANGUAGE_CODE)
+    ('ar', "Arabic"),
+    ]
+    ```
+
+3. To allow all of the page trees to be served at the same domain, we need to add a URL prefix for each language.
+
+    ```python
+    from django.conf.urls.i18n import i18n_patterns
+
+    urlpatterns = [
+        path('django-admin/', admin.site.urls),
+
+        path('admin/', include(wagtailadmin_urls)),
+        path('documents/', include(wagtaildocs_urls)),
+    ]
+
+    urlpatterns += i18n_patterns(
+        path('search/', search_views.search, name='search'),
+        path("", include(wagtail_urls)),
+    )
+    ```
+
+4. After wrapping your URL patterns with i18n_patterns, your site will now respond on URL prefixes. But now it won’t respond on the root path.
+
+    ```python
+    MIDDLEWARE = [
+    # ... NOTE: After SessionMiddleware 
+    'django.middleware.locale.LocaleMiddleware',
+    # ... NOTE: Before CommonMiddleware
+    ]
+    ```
+
+5. Here is a basic example of how to add links between translations of a page.
+
+    ```python
+    {% load i18n wagtailcore_tags %}
+
+    {% if page %}
+    {% for translation in page.get_translations.live %}
+        {% get_language_info for translation.locale.language_code as lang %}
+        <a href="{% pageurl translation %}" rel="alternate" hreflang="{{ language_code }}">
+            {{ lang.name_local }}
+        </a>
+    {% endfor %}
+    {% endif %}
+
+    # NOTE: Should be at the begining of the HTML file
+    ```
+
+6. Then in the admin site under **`setting`** a **`locales`** tab where we can add new language to our website.
+
+### NOTES
+
+1. The Wagtail Localization does not support **`ListBlock`** yet.
+
+### References
+
+* [Wagtail Transifex](https://www.transifex.com/torchbox/wagtail/)
+* [Wagtail localization Documentation](https://docs.wagtail.org/en/stable/advanced_topics/i18n.html#id25)
+
+------------------------------------------
+
 ## Wagtail Imports
 
 ```python
