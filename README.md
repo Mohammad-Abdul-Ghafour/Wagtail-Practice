@@ -241,7 +241,7 @@
 
 ### NOTES
 
-1. The Wagtail Localization does not support **`ListBlock`** yet.
+1. The Wagtail Localization started supporting **`ListBlock`** in version 2.16.1 of **`wagtail`** and version 1.1 of **`wagtail-localize`** / 2022-3-11.
 
 ### References
 
