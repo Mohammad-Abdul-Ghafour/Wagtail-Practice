@@ -250,6 +250,67 @@
 
 ------------------------------------------
 
+## Customize Wagtail
+
+### Customize Wagtail Admin UI Colors and Styling
+
+1. First we have to enable wagtail **`Styleguide`**, to do so we have to go to **`dev.py`** in the **`INSTALLED_APPS`** and the following
+    > 'wagtail.contrib.styleguide',
+
+    Now in the admin site under setting tab we can see that there is new tab called **`styleguide`**
+
+2. Then we have to create new app and let's call it **`core`** and add it to our **`INSTALLED_APPS`**
+
+3. Then inside the core app we have to create new file and call it **`wagtail_hooks.py`**
+
+4. Then there are many hooks to use but for styling we gonna use the **`insert_global_admin_css`**
+
+    ```python
+    from django.utils.html import format_html
+    from django.templatetags.static import static
+
+    from wagtail.core import hooks
+
+    @hooks.register('insert_global_admin_css')
+    def global_admin_css():
+        return format_html('<link rel="stylesheet" href="{}">', static('css/theme.css'))
+        # static function here is just to indecate to our static folder
+        ## and this link static/css/theme.css will replace what inside the {} in our href
+    ```
+
+5. Then we create the css file inside our static and put our style there
+
+There is alot more hooks, we can find them in their documentation.
+
+[Wagtail Hooks](https://docs.wagtail.org/en/stable/reference/hooks.html?highlight=hooks)
+
+### Customize Wagtail Admin Templates
+
+There is many things that we can customize in wagtail template but we gonna only implement one of them to change the template logo
+
+1. First we need to either to use one of our existing apps or we can create new one for it
+
+2. Then inside the app we create **`templates/wagtailadmin/base.html`**
+
+3. Then inside this **`base.html`** we can override the logo image
+
+    ```python
+    {% extends "wagtailadmin/base.html" %}
+    {% load static %} # To load our image from the static folder
+
+    {% block branding_logo %}
+        <div style="width:100px; background-color:#D5D5D5; height:100px; line-height:115px; border-radius:100% ; text-align:center">
+        <img src="{% static 'images/LTUC.png' %}" alt="Custom Project" width="80" />
+        </div>
+    {% endblock %}
+    ```
+
+There is alot more that we can customize, we can find them in their documentation.
+
+[Customising Wagtail Admin Templates](https://docs.wagtail.org/en/stable/advanced_topics/customisation/admin_templates.html)
+
+------------------------------------------
+
 ## Wagtail Imports
 
 ```python
@@ -303,4 +364,9 @@ from django.shortcuts import render
 from django import forms
     ## For Localization
     from django.conf.urls.i18n import i18n_patterns
+
+# Customising Admin UI
+from django.utils.html import format_html
+from django.templatetags.static import static
+from wagtail.core import hooks
 ```

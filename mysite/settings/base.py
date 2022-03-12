@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'site_settings',
     'subscribers',
     'blog',
+    'core',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -45,8 +46,8 @@ INSTALLED_APPS = [
     'wagtail.documents',
     'wagtail.images',
     'wagtail.search',
-    'wagtail.admin',
     'wagtail.core',
+    'wagtail.admin',
     "wagtail_localize",
     "wagtail_localize.locales",
 
