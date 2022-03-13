@@ -1,6 +1,10 @@
+import locale
+from xml.dom.minidom import TypeInfo
 from django.db import models
 from django.shortcuts import render
 from django import forms
+
+from wagtail.core.models import TranslatableMixin
 
 from modelcluster.fields import (
     ParentalKey,
@@ -28,7 +32,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from streams import blocks
 
-class BlogCategory(models.Model):
+class BlogCategory(TranslatableMixin,models.Model):
 
     name = models.CharField(max_length=255)
     slug = models.SlugField(
@@ -43,7 +47,7 @@ class BlogCategory(models.Model):
         FieldPanel("slug")
     ]
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "Category"
         verbose_name_plural = "Categories"
         ordering = ["name"]
@@ -65,7 +69,7 @@ class BolgAuthorsOrderable(Orderable):
         SnippetChooserPanel("author")
     ]
 
-class BlogAuthor(models.Model):
+class BlogAuthor(TranslatableMixin,models.Model):
 
     name = models.CharField(max_length=100,null=False,blank=False)
     image = models.ForeignKey(
@@ -94,7 +98,7 @@ class BlogAuthor(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "Blog Author"
         verbose_name_plural = "Blog Authors"
 
@@ -118,9 +122,22 @@ class BlogListPage(RoutablePageMixin,Page):
 
     def get_context(self, request, *args, **kwargs):
         context =  super().get_context(request, *args, **kwargs)
-        context["posts"] = BlogDetailPage.objects.live().public()
         context['revers_link'] = self.reverse_subpage('last_posts')
-        context['categories'] = BlogCategory.objects.all()
+        # print(self.get_translations)
+        # print(self.locale)
+        # print(type(self.locale))
+        # print(self.locale.__str__())
+        # if request.GET.get(locale,None):
+        #     locale = request.GET.get('locale')
+        #     context['categories'] = BlogCategory.objects.filter(locale=[locale])
+
+        if self.locale.__str__() == 'English' :
+            print('hello')
+            context['categories'] = BlogCategory.objects.filter(locale="1")
+            context["posts"] = BlogDetailPage.objects.live().public().filter(locale="1")
+        elif self.locale.__str__() == 'Arabic':
+            context['categories'] = BlogCategory.objects.filter(locale="2")
+            context["posts"] = BlogDetailPage.objects.live().public().filter(locale="2")
         return context
     
     @route(r'^latest/$' , name="last_posts")

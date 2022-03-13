@@ -220,7 +220,7 @@
     ]
     ```
 
-5. Here is a basic example of how to add links between translations of a page.
+5. Here is a basic example of how to add link to switch between translations of a page.
 
     ```python
     {% load i18n wagtailcore_tags %}
@@ -242,6 +242,22 @@
 ### NOTES
 
 1. The Wagtail Localization started supporting **`ListBlock`** in version 2.16.1 of **`wagtail`** and version 1.1 of **`wagtail-localize`** / 2022-3-11.
+
+2. For the snippets we need to use **`TranslatableMixin`** in its class.
+
+3. If we have **`get_context`** function in one of our classes we need to manualy filter the object class according to the language
+
+    eg.
+
+    ```python
+    # This is one of the ways to do so.
+    if self.locale.__str__() == 'English' :
+        context['categories'] = BlogCategory.objects.filter(locale="1")
+        context["posts"] = BlogDetailPage.objects.live().public().filter(locale="1")
+    elif self.locale.__str__() == 'Arabic':
+        context['categories'] = BlogCategory.objects.filter(locale="2")
+        context["posts"] = BlogDetailPage.objects.live().public().filter(locale="2")
+    ```
 
 ### References
 
@@ -319,6 +335,7 @@ from wagtail.core import blocks
 from wagtail.core.models import (
     Page,
     Orderable,
+    TranslatableMixin, # For snippets to make them translatable
 )
 # Fields
 from wagtail.core.fields import (
