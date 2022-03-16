@@ -12,12 +12,12 @@ header {
     background-color:#3E065F;
 }
 
-.sidebar{
+/* .sidebar{
     right:0;
     left:auto;
-}
+} */
 
-@media screen and (min-width: 50em){
+/* @media screen and (min-width: 50em){
 body.ready .wrapper, body.ready body.nav-open .wrapper {
     transition: padding-right .15s ease;
 }}
@@ -32,4 +32,4 @@ body.ready .wrapper, body.ready body.nav-open .wrapper {
 body.sidebar-collapsed .wrapper{
     padding-left: 0;
     padding-right: 60px;
-}}
+}} */

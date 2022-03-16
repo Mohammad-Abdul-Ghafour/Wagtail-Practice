@@ -30,6 +30,8 @@ from wagtail.contrib.routable_page.models import (
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
+# from wagtail_localize.fields import TranslatableField, SynchronizedField
+
 from streams import blocks
 
 class BlogCategory(TranslatableMixin,models.Model):
@@ -191,6 +193,11 @@ class BlogDetailPage(Page):
         blank=True,
     )
     
+    # translatable_fields = [
+    #     TranslatableField("categories"),
+    #     SynchronizedField("slug"),
+    # ]
+
     content_panels = Page.content_panels + [
         FieldPanel("custom_title"),
         ImageChooserPanel("blog_image"),

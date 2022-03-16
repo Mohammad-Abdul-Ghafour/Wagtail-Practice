@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'blog',
     'core',
 
+    "wagtail_localize",
+    "wagtail_localize.locales",
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.settings',
@@ -48,8 +50,6 @@ INSTALLED_APPS = [
     'wagtail.search',
     'wagtail.core',
     'wagtail.admin',
-    "wagtail_localize",
-    "wagtail_localize.locales",
 
     'modelcluster',
     'taggit',
