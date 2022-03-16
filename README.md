@@ -387,7 +387,3 @@ from django.utils.html import format_html
 from django.templatetags.static import static
 from wagtail.core import hooks
 ```
-
-------------------------------------------
-
-## Menus
