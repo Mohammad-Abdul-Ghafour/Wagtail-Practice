@@ -6,10 +6,11 @@
 
     <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
         {% for card in self.cards %}
-            {% image card.image fill-380x200 as img %}
-            <div class="col">
-              <div class="card border-light h-100">
-                <img src="{{ img.url }}" class="card-img-top img-fluid" alt="{{ img.alt }}" style="width:auto; height:15rem; margin: 0 auto  0 auto;">
+        {% image card.image fill-380x200 as img %}
+        <div class="col">
+            <div class="card border-light h-100">
+                <img src="{{ img.url }}" class="card-img-top img-fluid" alt="{{ img.alt }}"
+                    style="width:auto; height:15rem; margin: 0 auto  0 auto;">
                 <div class="card-body">
                     <h5 class="card-title">{{card.title}}</h5>
                     <p class="card-text">{{card.text}}</p>
@@ -22,21 +23,21 @@
                             Learn More (external)
                         </a>
                     </div>
-                         {% comment %} <a href="{{ card.url }}" class="btn btn-info">
-                            {{ self.url }}
-                        </a> {% endcomment %}
+                    {% comment %} <a href="{{ card.url }}" class="btn btn-info">
+                        {{ self.url }}
+                    </a> {% endcomment %}
                     {% elif card.page_buttons %}
-                        <a href="{{ card.page_buttons.url }}" class="btn btn-info">
-                            Learn More
-                        </a>
+                    <a href="{{ card.page_buttons.url }}" class="btn btn-info">
+                        Learn More
+                    </a>
                     {% elif card.url_button %}
-                        <a href="{{ card.url_button }}" class="btn btn-info">
-                            Learn More
-                        </a>
+                    <a href="{{ card.url_button }}" class="btn btn-info">
+                        Learn More
+                    </a>
                     {% endif %}
                 </div>
-              </div>
             </div>
+        </div>
         {% endfor %}
     </div>
 

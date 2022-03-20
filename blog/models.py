@@ -1,5 +1,4 @@
 import locale
-from xml.dom.minidom import TypeInfo
 from django.db import models
 from django.shortcuts import render
 from django import forms

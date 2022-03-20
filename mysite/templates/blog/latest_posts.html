@@ -4,26 +4,26 @@
 
 {% block imageIcon %}
 
-    https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300
+https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300
 
 {% endblock %}
 
-{% block content %} 
+{% block content %}
 <div class="container">
     {% for post in posts %}
-        <div class="row my-2">
-            <div class="col-sm-4">
-                {% image post.blog_image fill-340x180 as blog_img %}
-                <a href="{{ post.url }}">
-                    <img src="{{ blog_img.url }}" alt="{{ blog_img.alt }}">
-                </a>
-            </div>
-            <div class="col-sm-8">
-                <a href="{{ post.url }}">
-                    {{ post.custom_title }}
-                </a>
-            </div>
+    <div class="row my-2">
+        <div class="col-sm-4">
+            {% image post.blog_image fill-340x180 as blog_img %}
+            <a href="{{ post.url }}">
+                <img src="{{ blog_img.url }}" alt="{{ blog_img.alt }}">
+            </a>
         </div>
+        <div class="col-sm-8">
+            <a href="{{ post.url }}">
+                {{ post.custom_title }}
+            </a>
+        </div>
+    </div>
     {% endfor %}
 </div>
 

@@ -4,75 +4,76 @@
 
 {% block imageIcon %}
 
-    https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300
+https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300
 
 {% endblock %}
 
-{% block content %} 
+{% block content %}
 
-    {% image self.blog_image fill-900x300 as banner %}
-    <img src="{{ banner.url }}" alt="{{ banner.alt }}" style="width:100% ; hieght:auto">
-    <div class="container mt-5 mb-5 text_center">
-        <div class="text_center">
-            <h1>
-                {{ self.custom_title }}
-            </h1>
-            <ul>
+{% image self.blog_image fill-900x300 as banner %}
+<img src="{{ banner.url }}" alt="{{ banner.alt }}" style="width:100% ; hieght:auto">
+<div class="container mt-5 mb-5 text_center">
+    <div class="text_center">
+        <h1>
+            {{ self.custom_title }}
+        </h1>
+        <ul>
             {% for author in self.blog_authors.all %}
-                {% image author.author.image fill-50x50 as img %}
-                <li class="d-flex align-items-center">
-                    <img src="{{img.url}}" alt="{{author.author.name}}" class="rounded-circle mx-2">
-                    <div>
-                    {{ author.author.name}} - {% if author.author.email %}<a href="{{ author.author.email }}">Email</a> (Author){% endif %}
-                    </div>
-                </li>
+            {% image author.author.image fill-50x50 as img %}
+            <li class="d-flex align-items-center">
+                <img src="{{img.url}}" alt="{{author.author.name}}" class="rounded-circle mx-2">
+                <div>
+                    {{ author.author.name}} - {% if author.author.email %}<a href="{{ author.author.email }}">Email</a>
+                    (Author){% endif %}
+                </div>
+            </li>
             {% endfor %}
         </ul>
-            <div>
-                <h4>
-                    Categories
-                </h4>
-                <ul>
-                    {% for cat in self.categories.all %}
-                        <li>
-                            <a href="?category={{ cat.slug }}">
-                            {{ cat.name }}
-                            </a>
-                        </li>
-                    {% endfor %}
+        <div>
+            <h4>
+                Categories
+            </h4>
+            <ul>
+                {% for cat in self.categories.all %}
+                <li>
+                    <a href="?category={{ cat.slug }}">
+                        {{ cat.name }}
+                    </a>
+                </li>
+                {% endfor %}
 
-                </ul>
-            </div>
+            </ul>
         </div>
-        
-                <hr class="my-4" style = "border-top: 2px solid white;">
-        <h3>
-            {{ self.subtitle }}
-        </h3>
-        {% image self.intro_image fill-900x300 as intro_image %}
-                    <img src="{{intro_image.url}}" alt="{{intro_image.alt}}">
-
     </div>
 
-    {% for block in self.content %}
-        {% include_block block %}
-    {% endfor %}
+    <hr class="my-4" style="border-top: 2px solid white;">
+    <h3>
+        {{ self.subtitle }}
+    </h3>
+    {% image self.intro_image fill-900x300 as intro_image %}
+    <img src="{{intro_image.url}}" alt="{{intro_image.alt}}">
+
+</div>
+
+{% for block in self.content %}
+{% include_block block %}
+{% endfor %}
 
 {% comment %} <div class="container">
     {% for post in posts %}
-        <div class="row my-2">
-            <div class="col-sm-4">
-                {% image post.blog_image fill-340x180 as blog_img %}
-                <a href="{{ post.url }}">
-                    <img src="{{ blog_img.url }}" alt="{{ blog_img.alt }}">
-                </a>
-            </div>
-            <div class="col-sm-8">
-                <a href="{{ post.url }}">
-                    {{ post.custom_title }}
-                </a>
-            </div>
+    <div class="row my-2">
+        <div class="col-sm-4">
+            {% image post.blog_image fill-340x180 as blog_img %}
+            <a href="{{ post.url }}">
+                <img src="{{ blog_img.url }}" alt="{{ blog_img.alt }}">
+            </a>
         </div>
+        <div class="col-sm-8">
+            <a href="{{ post.url }}">
+                {{ post.custom_title }}
+            </a>
+        </div>
+    </div>
     {% endfor %}
 </div> {% endcomment %}
 
