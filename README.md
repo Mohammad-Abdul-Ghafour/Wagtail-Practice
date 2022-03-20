@@ -392,6 +392,8 @@ from wagtail.core import hooks
 
 ## Menus
 
+1. We have to create new model for the menus and it will inherit from **`ClusterableModel`**
+
 ------------------------------------------
 
 ## Dynamic Nav Bar
