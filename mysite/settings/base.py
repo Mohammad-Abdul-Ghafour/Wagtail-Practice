@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'subscribers',
     'blog',
     'core',
+    'menus',
 
     "wagtail_localize",
     "wagtail_localize.locales",

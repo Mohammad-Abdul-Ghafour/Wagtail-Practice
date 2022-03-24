@@ -61,3 +61,12 @@ class ButtonBlock(blocks.StructBlock):
         label = "Single Button"
         value_class = LinkStructValue
 
+class DropDownBlock(blocks.StructBlock):
+
+    link_title = blocks.CharBlock(required=True,max_length=40)
+    link_page = blocks.PageChooserBlock(required=False)
+    link_url = blocks.URLBlock(required=False)
+
+    class Meta:
+        template = "streams/drop_down_block.html"
+        icon="placeholder"
