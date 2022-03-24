@@ -390,10 +390,13 @@ from wagtail.core import hooks
 
 ------------------------------------------
 
-## Menus
+## Dynamic Nav Bar (Menus)
 
 1. We have to create new model for the menus and it will inherit from **`ClusterableModel`**
+    > class Menu(ClusterableModel)
+
+2. Then we can create an Orderable Class or we can just use StreamField directly.
+
+3. Then we have to regist the Menus class as snippets.
 
 ------------------------------------------
-
-## Dynamic Nav Bar
