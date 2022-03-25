@@ -1,0 +1,7 @@
+<a class="dropdown-item" href="
+{% if self.link_page %}
+{{ self.link_page.url }}
+{% elif self.link_url %}
+{{ self.link_url }}
+{% endif %}
+">{{ self.link_title }}</a>

@@ -266,6 +266,36 @@
 
 ------------------------------------------
 
+## Dynamic Nav Bar (Menus)
+
+1. We have to create new model for the menus and it will inherit from **`ClusterableModel`**
+    > class Menu(ClusterableModel)
+
+2. Then we can create an Orderable Class or we can just use StreamField directly.
+
+3. Then we have to regist the Menus class as snippets.
+
+4. Then inside our menus app we have to create new folder **`templatetags`** and under it create **`menus_tags.py`** file.
+
+5. In **`menus_tags.py`** we have to regist a **`simple_tag`**.
+
+    ```python
+    from django import template
+    from ..models import Menu
+
+    register = template.Library()
+
+    @register.simple_tag()
+    def get_menu(slug):
+        return Menu.objects.get(slug=slug)
+    ```
+
+------------------------------------------
+
+## 
+
+------------------------------------------
+
 ## Customize Wagtail
 
 ### Customize Wagtail Admin UI Colors and Styling
@@ -389,11 +419,3 @@ from wagtail.core import hooks
 ```
 
 ------------------------------------------
-
-## Menus
-
-1. We have to create new model for the menus and it will inherit from **`ClusterableModel`**
-
-------------------------------------------
-
-## Dynamic Nav Bar
