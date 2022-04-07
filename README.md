@@ -134,6 +134,27 @@
 
 ------------------------------------------
 
+## Parent Page / Subpage Type Rules
+
+These two attributes allow you to control where page types may be used in your site. It allows you to define rules like “blog entries may only be created under a blog index”.
+
+Both take a list of model classes or model names. Model names are of the format app_label.ModelName. If the app_label is omitted, the same app is assumed.
+
+parent_page_types limits which page types this type can be created under
+subpage_types limits which page types can be created under this type
+By default, any page type can be created under any page type and it is not necessary to set these attributes if that’s the desired behaviour.
+
+Setting parent_page_types to an empty list is a good way of preventing a particular page type from being created in the editor interface.
+
+```python
+    # Parent page / subpage type rules
+
+    parent_page_types = ['blog.BlogIndex']
+    subpage_types = []
+```
+
+------------------------------------------
+
 ## Sitemaps
 
 1. First we have to enable Sitemaps from the **`settings`** **`INSTALLED_APPS`** for **`django`** and **`wagtail`**
