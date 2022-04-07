@@ -155,6 +155,32 @@ Setting parent_page_types to an empty list is a good way of preventing a particu
 
 ------------------------------------------
 
+## StreamField Block Count
+
+```python
+    content = StreamField(
+        [
+
+            ("Banner", blocks.Banner()),
+            ("Text_With_Right_Image", blocks.TextWithRightImage()),
+            ("Text_With_Left_Image", blocks.TextWithLeftImage()),
+            ("Text", blocks.AboutUsBlock()),            
+            ("Most_Popular_Programs", blocks.Admission()),
+            ("YouTube_Video_Block", blocks.YouTubeVideoBlock()),
+            ("Calendar", blocks.Calendar()),
+
+        ],block_counts= {
+        'Calendar': {'max_num': 1},
+        }
+        , 
+        null = True,
+        blank = True,
+        
+    )
+```
+
+------------------------------------------
+
 ## Sitemaps
 
 1. First we have to enable Sitemaps from the **`settings`** **`INSTALLED_APPS`** for **`django`** and **`wagtail`**
