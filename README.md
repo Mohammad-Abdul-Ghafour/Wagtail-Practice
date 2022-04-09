@@ -75,7 +75,7 @@
 
 ### Django Shell Extension
 
-1. On your terminal tyoe the following
+1. On your terminal type the following
     > pip install django-extensions
 2. Then go to **`dev.py`** and just add it to the **`INSTALLED_APPS`**
 
@@ -88,7 +88,7 @@
 3. Then to enter the shell just run the following on the terminal
     > python manage.py shell_plus
 
-#### Importent Codes
+#### Important Codes
 
 * **`__dict__`** : This will give us a dictionary of everything available.
 
@@ -136,26 +136,70 @@
 
 ## Parent Page / Subpage Type Rules
 
-These two attributes allow you to control where page types may be used in your site. It allows you to define rules like “blog entries may only be created under a blog index”.
+These two attributes allow you to control where page types may be used in your site. It allows you to define rules like **`blog details page`** may only be created under a **`blog list page`**.
 
 Both take a list of model classes or model names. Model names are of the format app_label.ModelName. If the app_label is omitted, the same app is assumed.
 
-parent_page_types limits which page types this type can be created under
-subpage_types limits which page types can be created under this type
-By default, any page type can be created under any page type and it is not necessary to set these attributes if that’s the desired behaviour.
+1. **`parent_page_types`** : limits which page types this type can be created under.
+2. **`subpage_types`** : limits which page types can be created under this type.
+
+By default, any page type can be created under any page type and it is not necessary to set these attributes if that’s the desired behavior.
 
 Setting parent_page_types to an empty list is a good way of preventing a particular page type from being created in the editor interface.
 
 ```python
-    # Parent page / subpage type rules
-
-    parent_page_types = ['blog.BlogIndex']
-    subpage_types = []
+    parent_page_types = ['blog.BlogListPage'] # This means that the page can be created only under blog list page as its parent.
+    subpage_types = [] # Empty list means this page has no subpages under it.
 ```
 
 ------------------------------------------
 
-## StreamField Block Count
+## Advanced StreamField
+
+### StreamField Content Value
+
+In StreamField we know that we have to loop over all elements or blocks inside it, but what if we need to reach one specific block and render only part of it ?
+
+We can use **`Value`** method as the following:
+
+```python
+{% for block in page.content %}
+    {% if block.block_type == 'person' %}
+        <h2>{{ block.value.first_name }} {{ block.value.surname }}</h2>
+    {% endif %}
+{% endfor %}
+```
+
+Here we reached the person block under content streamfield and only get the first_name and surname.
+
+To know more about StreamField you can browse them in [wagtail documentation](https://docs.wagtail.org/en/stable/topics/streamfield.html#streamfield)
+
+### StreamField Block Count
+
+Sometimes we need to make a block in StreamField that we can add only number of times so how to do that ?
+
+Simply we can give the StreamField max_num and min_num as the following.
+
+```python
+    content = StreamField(
+        [
+
+            ("Banner", blocks.Banner()),
+            ("Text_With_Right_Image", blocks.TextWithRightImage()),
+            ("Text_With_Left_Image", blocks.TextWithLeftImage()),
+            ("Text", blocks.AboutUsBlock()),            
+            ("Most_Popular_Programs", blocks.Admission()),
+            ("YouTube_Video_Block", blocks.YouTubeVideoBlock()),
+            ("Calendar", blocks.Calendar()),
+
+        ], max_num = 2,min_num = 1, 
+        null = True,
+        blank = True,
+        
+    )
+```
+
+In this case we give all block in the **`StreamField`** max and min number, to give a specific block we can add **`block_count`** to it and specify the block as the following.
 
 ```python
     content = StreamField(
@@ -179,6 +223,8 @@ Setting parent_page_types to an empty list is a good way of preventing a particu
     )
 ```
 
+And there are much more to control to the StreamField, you can browse them in [wagtail documentation](https://docs.wagtail.org/en/latest/reference/streamfield/blocks.html).
+
 ------------------------------------------
 
 ## Sitemaps
@@ -201,9 +247,9 @@ Setting parent_page_types to an empty list is a good way of preventing a particu
 
 ------------------------------------------
 
-## Wagtail Localizaton
+## Wagtail Localization
 
-### Inatalling Wagtail Localize
+### Installing Wagtail Localize
 
 1. Install using pip:
 
@@ -220,9 +266,9 @@ Setting parent_page_types to an empty list is a good way of preventing a particu
     ]
     ```
 
-### Enabling internationalisation
+### Enabling internationalization
 
-1. To enable internationalisation in both Django and Wagtail, set the following settings to True
+1. To enable internationalization in both Django and Wagtail, set the following settings to True
 
     ```python
     USE_I18N = True
@@ -281,7 +327,7 @@ Setting parent_page_types to an empty list is a good way of preventing a particu
     {% endfor %}
     {% endif %}
 
-    # NOTE: Should be at the begining of the HTML file
+    # NOTE: Should be at the beginning of the HTML file
     ```
 
 6. Then in the admin site under **`setting`** a **`locales`** tab where we can add new language to our website.
@@ -292,7 +338,7 @@ Setting parent_page_types to an empty list is a good way of preventing a particu
 
 2. For the snippets we need to use **`TranslatableMixin`** in its class.
 
-3. If we have **`get_context`** function in one of our classes we need to manualy filter the object class according to the language
+3. If we have **`get_context`** function in one of our classes we need to manually filter the object class according to the language
 
     eg.
 
@@ -314,6 +360,8 @@ Setting parent_page_types to an empty list is a good way of preventing a particu
 ------------------------------------------
 
 ## Dynamic Nav Bar (Menus)
+
+### As Snippet
 
 1. We have to create new model for the menus and it will inherit from **`ClusterableModel`**
     > class Menu(ClusterableModel)
@@ -337,9 +385,11 @@ Setting parent_page_types to an empty list is a good way of preventing a particu
         return Menu.objects.get(slug=slug)
     ```
 
+### As Setting (@Todo)
+
 ------------------------------------------
 
-## 
+## Admin Site Customization (@Todo)
 
 ------------------------------------------
 
@@ -367,13 +417,13 @@ Setting parent_page_types to an empty list is a good way of preventing a particu
     @hooks.register('insert_global_admin_css')
     def global_admin_css():
         return format_html('<link rel="stylesheet" href="{}">', static('css/theme.css'))
-        # static function here is just to indecate to our static folder
+        # static function here is just to indicate to our static folder
         ## and this link static/css/theme.css will replace what inside the {} in our href
     ```
 
 5. Then we create the css file inside our static and put our style there
 
-There is alot more hooks, we can find them in their documentation.
+There is a lot more hooks, we can find them in their documentation.
 
 [Wagtail Hooks](https://docs.wagtail.org/en/stable/reference/hooks.html?highlight=hooks)
 
@@ -398,9 +448,9 @@ There is many things that we can customize in wagtail template but we gonna only
     {% endblock %}
     ```
 
-There is alot more that we can customize, we can find them in their documentation.
+There is a lot more that we can customize, we can find them in their documentation.
 
-[Customising Wagtail Admin Templates](https://docs.wagtail.org/en/stable/advanced_topics/customisation/admin_templates.html)
+[Customizing Wagtail Admin Templates](https://docs.wagtail.org/en/stable/advanced_topics/customisation/admin_templates.html)
 
 ------------------------------------------
 
@@ -459,7 +509,7 @@ from django import forms
     ## For Localization
     from django.conf.urls.i18n import i18n_patterns
 
-# Customising Admin UI
+# Customizing Admin UI
 from django.utils.html import format_html
 from django.templatetags.static import static
 from wagtail.core import hooks
